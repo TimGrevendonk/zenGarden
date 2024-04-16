@@ -26,7 +26,7 @@ font-style: normal; */
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-size: clamp(12px, 4vw, 24px);
+    font-size: clamp(16px, 2vw, 40px);
     text-decoration: none;
     color: var(--base-text-colour);
 }
@@ -60,6 +60,7 @@ body {
         var(--space-blue)
         );
     background-attachment: fixed;
+    overflow-x: hidden;
 }
 
 section.intro header[role="banner"] {
@@ -71,7 +72,7 @@ section.intro header[role="banner"] {
     --arch-width: calc(var(--arch-height) * 0.75);
 
     display: flex;
-    gap: clamp(0.5rem, 3vw, 2rem);
+    gap: clamp(0.5rem, 8vw, 2rem);
     justify-content: center;
     align-items: center;
 
@@ -165,17 +166,17 @@ div.preamble {
 
     min-height: var(--element-height);
     min-height: var(--device-element-height);
-    background: linear-gradient(180deg, var(--desert-beige) 30%, var(--brick-orange) 40%);
+    background: linear-gradient(180deg, var(--desert-beige) 5%, var(--brick-orange) 40%);
     display: flex;
     flex-direction: column;
     padding-top: 7rem;
     position: relative;
 }
-div.preamble h3::after {
+div.preamble::before {
     /* See header[before] element for documentation. */
     background-image: url("assets/vectors/openarch.svg");
     background-size: contain;
-    width: 100vw;
+    width: var(--scolles-width);
     height: calc(var(--arch-height) * 0.75);
     background-repeat: space no-repeat;
     content: "";
@@ -183,39 +184,98 @@ div.preamble h3::after {
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 40;
 }
-/*- Fix the colour mode of the text, let the background look less ike tooth. */
+div.preamble::after {
+    /* See header[before] element for documentation. */
+    background-image: url("assets/vectors/whiteopenarch.svg");
+    background-size: contain;
+    width: var(--scolles-width);
+    height: calc(var(--arch-height) * 0.75);
+    background-repeat: space no-repeat;
+    content: "";
 
-div.preamble > p {
-    flex-grow: 1;
-    justify-content: center;
-    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 30;
 }
 
-div.preamble > p, div.summary > p > a, div.summary > p > abbr {
-    color: white;
-    mix-blend-mode: difference;
+div.preamble > * {
+    z-index: 35;
 } 
+
 
 /** Orange bricks **/
 div.main .explanation {
     --element-height: 33vh;
     --device-element-height: 33dvh;
+    --window-dimension: calc(var(--element-height) / 2.5);
 
     min-height: var(--element-height);
     min-height: var(--device-element-height);
     background: linear-gradient(var(--brick-orange) 90%, var(--pink-plaster));
 
+    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-around;   
     
 }
+
+div.main .explanation::before {
+    grid-area: pink;
+    /* Set the SVG as the background of the new pseudo element. */
+    background-image: url("assets/vectors/window.svg");
+    /* Sizing of the SVG itsef. */
+    background-size: var(--window-dimension);
+    /* Size of the space the SVG is contained in. */
+    width: calc(100% - 2rem);
+    height:  calc(100% - 4rem);
+    /* Needs to be a Block element at least. */
+    display: inline-block;
+    /* Pseudo element must have content (even empty). */
+    content: "";
+    background-repeat: space space;
+
+
+    position: absolute;
+    left: 0;
+    margin: auto 1rem;
+    z-index: 40;
+}
+
+div.main .explanation::after {
+    grid-area: pink;
+    /* Set the SVG as the background of the new pseudo element. */
+    background-image: url("assets/vectors/whitewindow.svg");
+    /* Sizing of the SVG itsef. */
+    background-size: var(--window-dimension);
+    /* Size of the space the SVG is contained in. */
+    width: calc(100% - 2rem);
+    height:  calc(100% - 4rem);
+    /* Needs to be a Block element at least. */
+    display: inline-block;
+    /* Pseudo element must have content (even empty). */
+    content: "";
+    background-repeat: space space;
+
+
+    position: absolute;
+    left: 0;
+    margin: auto 1rem;
+    z-index: 30;
+}
+
+div.explanation > * {
+    z-index: 35;
+} 
 
 /** 3 block stack. **/
 div.main .participation {
     --element-height: 60vh;
     --device-element-height: 60dvh;
+    --window-dimension: calc(var(--element-height) / 3 - 2rem);
 
     min-height: var(--element-height);
     min-height: var(--device-element-height);
@@ -227,6 +287,8 @@ div.main .participation {
         "pink"
         "yellow"
         "green";
+
+    position: relative;
 }
 
 /** Pink block **/
@@ -240,6 +302,32 @@ div.main .participation p:nth-child(2) {
     width: var(--scolles-width);
 }
 
+div.main .participation p:nth-child(2)::after {
+    grid-area: pink;
+    /* Set the SVG as the background of the new pseudo element. */
+    background-image: url("assets/vectors/pinkWindow.svg");
+    /* Sizing of the SVG itsef. */
+    background-size: var(--window-dimension);
+    /* Size of the space the SVG is contained in. */
+    width: calc(100% - 2rem);
+    height: 100%;
+    /* Needs to be a Block element at least. */
+    display: inline-block;
+    /* Pseudo element must have content (even empty). */
+    content: "";
+    background-repeat: space no-repeat;
+
+
+    position: absolute;
+    left: 0;
+    margin: auto 1rem;
+}
+
+
+div.main .participation  p:nth-child(2)::before svg path {
+    fill: var(--pink-plaster);
+}
+
 /** Yellow block **/
 
 div.main .participation p:nth-child(3) {
@@ -249,6 +337,27 @@ div.main .participation p:nth-child(3) {
     padding-left: 1rem;
     padding-right: 1rem;
     width: var(--scolles-width);
+}
+
+div.main .participation p:nth-child(3)::after {
+    grid-area: yellow;
+    /* Set the SVG as the background of the new pseudo element. */
+    background-image: url("assets/vectors/yellowWindow.svg");
+    /* Sizing of the SVG itsef. */
+    background-size: var(--window-dimension);
+    /* Size of the space the SVG is contained in. */
+    width: var(--scolles-width);
+    height: var(--window-dimension);
+    /* Needs to be a Block element at least. */
+    display: inline-block;
+    /* Pseudo element must have content (even empty). */
+    content: "";
+    background-repeat: space no-repeat;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scaleX(-1);
 }
 /** Green block **/
 div.main .participation p:nth-child(4) {
@@ -260,6 +369,26 @@ div.main .participation p:nth-child(4) {
     width: var(--scolles-width);
 }
 
+div.main .participation p:nth-child(4)::after {
+    grid-area: green;
+    /* Set the SVG as the background of the new pseudo element. */
+    background-image: url("assets/vectors/greenWindow.svg");
+    /* Sizing of the SVG itsef. */
+    background-size: var(--window-dimension);
+    /* Size of the space the SVG is contained in. */
+    width: var(--scolles-width);
+    height: var(--window-dimension);
+    /* Needs to be a Block element at least. */
+    display: inline-block;
+    /* Pseudo element must have content (even empty). */
+    content: "";
+    background-repeat: space no-repeat;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: scale(-1);
+}
 /** Angled stripes **/
 div.main .benefits {
     --element-height: 33vh;
@@ -267,20 +396,26 @@ div.main .benefits {
 
     min-height: var(--element-height);
     min-height: var(--device-element-height);
+    --stripe-width: 8vw;
     background: repeating-linear-gradient(
-        168deg,
-        var(--stripe-red),
-        var(--stripe-red) 8vw,
-        var(--stripe-silver) 8vw,
-        var(--stripe-silver) 16vw
+        135deg,
+        var(--stripe-red) 0,
+        var(--stripe-red) var(--stripe-width),
+        var(--stripe-silver) var(--stripe-width),
+        var(--stripe-silver) calc(var(--stripe-width) * 2)
     );
     clip-path: polygon( -0% 0%,100% 0%,100% 79.033%,100% 79.033%,99.993% 79.439%,99.941% 80.543%,99.802% 82.168%,99.531% 84.142%,99.084% 86.291%,98.418% 88.439%,97.487% 90.413%,96.249% 92.039%,94.659% 93.142%,92.674% 93.548%,92.674% 93.548%,90.443% 93.625%,88.188% 93.802%,85.97% 93.998%,83.85% 94.136%,81.888% 94.134%,80.146% 93.913%,78.685% 93.394%,77.566% 92.496%,76.85% 91.141%,76.597% 89.247%,76.597% 89.247%,76.753% 87.322%,77.191% 85.878%,77.867% 84.852%,78.734% 84.176%,79.748% 83.785%,80.865% 83.612%,82.038% 83.593%,83.224% 83.661%,84.377% 83.75%,85.451% 83.794%,85.451% 83.794%,88.318% 83.419%,90.04% 82.402%,90.728% 80.903%,90.492% 79.083%,89.442% 77.102%,87.688% 75.121%,85.34% 73.301%,82.508% 71.802%,79.303% 70.784%,75.833% 70.41%,75.833% 70.41%,74.365% 70.806%,72.702% 71.911%,70.908% 73.597%,69.043% 75.738%,67.168% 78.207%,65.345% 80.875%,63.636% 83.618%,62.101% 86.307%,60.803% 88.816%,59.802% 91.018%,59.802% 91.018%,58.676% 93.292%,57.395% 95.134%,55.984% 96.59%,54.469% 97.707%,52.877% 98.531%,51.233% 99.111%,49.562% 99.493%,47.892% 99.725%,46.246% 99.852%,44.653% 99.923%,44.55% 99.927%,44.55% 99.927%,42.839% 99.982%,40.912% 99.988%,38.871% 99.884%,36.817% 99.611%,34.852% 99.108%,33.077% 98.314%,31.593% 97.168%,30.501% 95.611%,29.903% 93.581%,29.901% 91.018%,29.901% 91.018%,30.517% 88.479%,31.588% 86.915%,33.014% 86.127%,34.697% 85.92%,36.537% 86.098%,38.437% 86.465%,40.297% 86.825%,42.019% 86.981%,43.504% 86.738%,44.653% 85.9%,44.653% 85.9%,45.744% 84.039%,45.878% 82.549%,45.216% 81.388%,43.922% 80.516%,42.157% 79.891%,40.085% 79.473%,37.869% 79.218%,35.671% 79.088%,33.653% 79.04%,31.979% 79.033%,31.979% 79.033%,31.225% 79.044%,30.176% 79.044%,28.93% 78.983%,27.586% 78.811%,26.242% 78.478%,24.995% 77.935%,23.945% 77.131%,23.189% 76.017%,22.825% 74.542%,22.951% 72.657%,22.951% 72.657%,23.932% 70.762%,25.945% 69.265%,28.785% 68.269%,32.248% 67.873%,36.127% 68.18%,40.217% 69.291%,44.313% 71.306%,48.21% 74.328%,51.701% 78.457%,54.583% 83.794%,54.583% 83.794%,55.131% 84.833%,55.668% 85.397%,56.162% 85.527%,56.58% 85.263%,56.888% 84.646%,57.053% 83.718%,57.042% 82.518%,56.822% 81.089%,56.36% 79.471%,55.623% 77.705%,55.623% 77.705%,51.787% 71.332%,47.523% 66.771%,42.98% 63.762%,38.307% 62.046%,33.654% 61.361%,29.17% 61.448%,25.003% 62.048%,21.304% 62.9%,18.221% 63.744%,15.903% 64.32%,15.903% 64.32%,14.5% 64.829%,13.355% 65.723%,12.489% 66.919%,11.921% 68.332%,11.671% 69.877%,11.761% 71.471%,12.208% 73.03%,13.035% 74.469%,14.259% 75.704%,15.903% 76.651%,15.903% 76.651%,18.366% 77.966%,20.353% 79.576%,21.887% 81.366%,22.988% 83.221%,23.681% 85.024%,23.985% 86.662%,23.925% 88.019%,23.521% 88.978%,22.795% 89.426%,21.771% 89.247%,21.771% 89.247%,20.216% 88.967%,18.013% 89.086%,15.353% 89.45%,12.427% 89.905%,9.427% 90.296%,6.543% 90.47%,3.967% 90.271%,1.891% 89.546%,0.505% 88.14%,-0% 85.9%,-0% 0% );
 
     display: flex;
     flex-direction: column;
-    justify-content: space-around;     
-    padding-bottom: 6rem;
+    justify-content: space-around;   
+    padding-bottom: 7rem;
 }
+div.main .benefits p,
+div.main .benefits p abbr {
+    font-weight: bold;
+}
+
 /** Lower archway **/
 div.main .requirements {
     min-height: 80vh;
@@ -378,12 +513,13 @@ aside .wrapper {
 #design-selection {
     left: 0;
 }
+
 #design-archives {
 
 }
+
 #zen-resources {
     right: 0;
-
 }
 
 aside.sidebar li,
@@ -400,7 +536,6 @@ aside.sidebar li * {
     #zen-resources {
         transform: translateY(calc(var(var(--top-offset)) + 4rem));
     }
-
 }
 
 #design-selection:hover,
