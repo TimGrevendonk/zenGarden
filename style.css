@@ -210,7 +210,7 @@ div.preamble > * {
 div.main .explanation {
     --element-height: 33vh;
     --device-element-height: 33dvh;
-    --window-dimension: calc(var(--element-height) / 2.5);
+    --window-dimension: calc(var(--element-height) / 1.2);
 
     min-height: var(--element-height);
     min-height: var(--device-element-height);
@@ -219,12 +219,12 @@ div.main .explanation {
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;   
-    
+    justify-content: space-around;
+    align-items: center;  
+    padding-bottom: 1rem; 
 }
 
 div.main .explanation::before {
-    grid-area: pink;
     /* Set the SVG as the background of the new pseudo element. */
     background-image: url("assets/vectors/window.svg");
     /* Sizing of the SVG itsef. */
@@ -238,7 +238,7 @@ div.main .explanation::before {
     content: "";
     background-repeat: space space;
 
-
+    opacity: 75%;
     position: absolute;
     left: 0;
     margin: auto 1rem;
@@ -246,7 +246,6 @@ div.main .explanation::before {
 }
 
 div.main .explanation::after {
-    grid-area: pink;
     /* Set the SVG as the background of the new pseudo element. */
     background-image: url("assets/vectors/whitewindow.svg");
     /* Sizing of the SVG itsef. */
@@ -273,12 +272,13 @@ div.explanation > * {
 
 /** 3 block stack. **/
 div.main .participation {
-    --element-height: 60vh;
-    --device-element-height: 60dvh;
+    --element-height: 100vh;
+    --device-element-height: 100dvh;
     --window-dimension: calc(var(--element-height) / 3 - 2rem);
 
     min-height: var(--element-height);
     min-height: var(--device-element-height);
+    width: var(--scolles-width);
 
     display: grid;
     grid-template-columns: 1fr;
@@ -288,7 +288,16 @@ div.main .participation {
         "yellow"
         "green";
 
-    position: relative;
+    position: relative;  
+}
+
+div.main .participation > p,
+div.main .participation abbr, 
+div.main .participation a, 
+div.main .participation > h3 {
+    /* height: 100%; */
+    margin: auto;
+    color: white;
 }
 
 /** Pink block **/
@@ -300,36 +309,34 @@ div.main .participation p:nth-child(2) {
     padding-left: 1rem;
     padding-right: 1rem;
     width: var(--scolles-width);
+
+    z-index: 35;
 }
 
-div.main .participation p:nth-child(2)::after {
+div.main .participation p:nth-child(2)::before {
     grid-area: pink;
     /* Set the SVG as the background of the new pseudo element. */
     background-image: url("assets/vectors/pinkWindow.svg");
     /* Sizing of the SVG itsef. */
     background-size: var(--window-dimension);
     /* Size of the space the SVG is contained in. */
-    width: calc(100% - 2rem);
+    width: var(--scolles-width);
     height: 100%;
     /* Needs to be a Block element at least. */
     display: inline-block;
     /* Pseudo element must have content (even empty). */
     content: "";
     background-repeat: space no-repeat;
-
+    background-position: center;
 
     position: absolute;
     left: 0;
+    top: 0;
     margin: auto 1rem;
-}
-
-
-div.main .participation  p:nth-child(2)::before svg path {
-    fill: var(--pink-plaster);
+    z-index: 40;
 }
 
 /** Yellow block **/
-
 div.main .participation p:nth-child(3) {
     grid-area: yellow;
     background: var(--yellow-plaster);
@@ -337,9 +344,12 @@ div.main .participation p:nth-child(3) {
     padding-left: 1rem;
     padding-right: 1rem;
     width: var(--scolles-width);
+
+    z-index: 35;
+    
 }
 
-div.main .participation p:nth-child(3)::after {
+div.main .participation p:nth-child(3)::before {
     grid-area: yellow;
     /* Set the SVG as the background of the new pseudo element. */
     background-image: url("assets/vectors/yellowWindow.svg");
@@ -347,18 +357,21 @@ div.main .participation p:nth-child(3)::after {
     background-size: var(--window-dimension);
     /* Size of the space the SVG is contained in. */
     width: var(--scolles-width);
-    height: var(--window-dimension);
+    height: 100%;
     /* Needs to be a Block element at least. */
     display: inline-block;
     /* Pseudo element must have content (even empty). */
     content: "";
     background-repeat: space no-repeat;
+    background-position: center;
 
     position: absolute;
     top: 0;
     left: 0;
     transform: scaleX(-1);
+    z-index: 40;
 }
+
 /** Green block **/
 div.main .participation p:nth-child(4) {
     grid-area: green;
@@ -377,12 +390,13 @@ div.main .participation p:nth-child(4)::after {
     background-size: var(--window-dimension);
     /* Size of the space the SVG is contained in. */
     width: var(--scolles-width);
-    height: var(--window-dimension);
+    height: 100%;
     /* Needs to be a Block element at least. */
     display: inline-block;
     /* Pseudo element must have content (even empty). */
     content: "";
     background-repeat: space no-repeat;
+    background-position: center;
 
     position: absolute;
     bottom: 0;
